@@ -13,6 +13,7 @@ public class ChemicalProvider {
 
     public static int priceChecker(CropData farm, ChemicalData chemicalProvider){
 
+        //Simple method to check the price by Hectare
         int size = farm.length * farm.width;
         int price = chemicalProvider.getPpl();
         int totalPrice = (size/10000)*price;
@@ -26,6 +27,8 @@ public class ChemicalProvider {
         file.createNewFile();
         FileWriter writer = new FileWriter(file);
 
+        //Double loop to check first if the crop fits the chemical
+        //And second if the time fits the needs of the chemical on that field
         for(int i = 0; i<farms.size();i++){
             for(int j = 0; j<chemicalProvider.size();j++){
                 if(farms.get(i).getCrop().equalsIgnoreCase(chemicalProvider.get(j).getCropUsage())){

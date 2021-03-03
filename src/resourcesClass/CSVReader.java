@@ -14,11 +14,13 @@ import java.util.List;
 
 public class CSVReader {
 
+    //path variables
     static private final String FARM_REFERENCE_FILE = "resources/farmData.csv";
     static private final String CHEMICAL_REFERENCE_FILE = "resources/chemicalsData.csv";
     static private final String SEPARATOR = ",";
 
     static public List<CropData> farmReader() throws IOException {
+        //File reader and a list to add all the data of the file
         BufferedReader csvReader = new BufferedReader(new FileReader(FARM_REFERENCE_FILE));
         String row;
         List<CropData> dataList = new ArrayList<>();
@@ -26,6 +28,7 @@ public class CSVReader {
         while ((row = csvReader.readLine()) != null){
 
             CropData data = new CropData();
+            //I separate the row data by a separator, a coma in this case and add all the data in the class
             String[] datas = row.split(SEPARATOR);
 
             data.setName(datas[0]);
@@ -37,9 +40,11 @@ public class CSVReader {
             data.setLength(Integer.parseInt(lengthString[0]));
             data.setCrop(datas[3]);
 
+            //With this I separate the day from the month
             String[] dateString = datas[4].split(" ");
             int day = Integer.parseInt(dateString[0].replaceAll("[^\\d]", ""));
             String month = dateString[1];
+            //I created a class Month for the processing of the months by name
             int monthNumber = Months.monthComparator(month);
             LocalDate date = LocalDate.of(2021, monthNumber, day);
             data.setLastSprayed(date);
@@ -56,6 +61,7 @@ public class CSVReader {
         String row;
         List<ChemicalData> dataList = new ArrayList<>();
 
+        //It does basically the same as the previous but for the information on the chemicals
         while ((row = csvReader.readLine()) != null){
 
             ChemicalData data = new ChemicalData();
